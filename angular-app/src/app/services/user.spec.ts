@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import { User } from './user';
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
 
-describe('User', () => {
-  let service: User;
+  constructor(private http: HttpClient) {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(User);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  getUsers() {
+    return this.http.get<any[]>(
+      'https://jsonplaceholder.typicode.com/users'
+    );
+  }
+}
